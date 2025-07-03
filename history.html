@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鹿児島県へようこそ - 薩摩の歴史</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background: linear-gradient(135deg, #8b7355 0%, #d4af37 50%, #8b7355 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 歴史的な背景パターン */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(139, 115, 85, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(101, 67, 33, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* 和紙のような質感 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.03) 0px,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 20px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(139, 115, 85, 0.02) 0px,
+                    rgba(139, 115, 85, 0.02) 1px,
+                    transparent 1px,
+                    transparent 20px
+                );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(250, 248, 240, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(139, 115, 85, 0.3);
+        }
+
+        /* 統一感のあるヘッダー */
+        body > header {
+            background: linear-gradient(45deg, #8b4513, #d4af37, #654321);
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(139, 69, 19, 0.4);
+            animation: headerGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes headerGlow {
+            0%, 100% { 
+                background: linear-gradient(45deg, #8b4513, #d4af37, #654321);
+                box-shadow: 0 5px 25px rgba(139, 69, 19, 0.4);
+            }
+            50% { 
+                background: linear-gradient(45deg, #654321, #8b4513, #d4af37);
+                box-shadow: 0 8px 35px rgba(139, 69, 19, 0.6);
+            }
+        }
+
+        body > header::before {
+            content: '🏛️⛩️📜⛩️🏛️';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            opacity: 0.8;
+            animation: headerFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes headerFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        body > header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        /* 統一感のあるナビゲーション */
+        body > nav {
+            background: linear-gradient(135deg, #654321 0%, #8b4513 100%);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 3px 20px rgba(101, 67, 33, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body > nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(212, 175, 55, 0.1) 25%, 
+                rgba(212, 175, 55, 0.2) 50%, 
+                rgba(212, 175, 55, 0.1) 75%, 
+                transparent 100%);
+            animation: navShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes navShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        body > nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.3));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        body > nav a:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(45deg, #d4af37, #8b4513);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        body > nav a:nth-child(3) {
+            background: linear-gradient(45deg, #8b4513, #d4af37);
+            border-color: rgba(139, 69, 19, 0.5);
+        }
+
+        body > nav a:nth-child(3):hover {
+            background: linear-gradient(45deg, #d4af37, #654321);
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.6);
+        }
+
+        .content {
+            padding: 40px;
+            text-align: left;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #8b4513;
+            text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.3);
+            position: relative;
+            background: linear-gradient(45deg, #8b4513, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .content h1::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #8b4513, #d4af37, #654321);
+            margin: 15px auto;
+            border-radius: 2px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { box-shadow: 0 0 10px rgba(139, 69, 19, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(139, 69, 19, 0.8); }
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #5d4037;
+            background: linear-gradient(135deg, #faf8f0 0%, #f5f2e8 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 3px solid #d4af37;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(139, 69, 19, 0.2);
+        }
+
+        .intro-text::before {
+            content: '🌸 薩摩の歴史をたどる旅 🌸';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #8b4513, #d4af37);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(139, 69, 19, 0.3);
+        }
+
+        #history {
+            margin-top: 40px;
+        }
+
+        .history-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #faf8f0 0%, #f0ebe0 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+            border-left: 6px solid #8b4513;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .history-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: historicalGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes historicalGlow {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            100% { transform: scale(1.2) rotate(180deg); opacity: 0.6; }
+        }
+
+        .history-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(139, 69, 19, 0.25);
+        }
+
+        .history-section h2 {
+            color: #8b4513;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .history-section h2::before {
+            font-size: 1.5rem;
+        }
+
+        .history-section:nth-child(1) h2::before { content: '🏰'; }
+        .history-section:nth-child(2) h2::before { content: '⚔️'; }
+        .history-section:nth-child(3) h2::before { content: '🌅'; }
+        .history-section:nth-child(4) h2::before { content: '🔫'; }
+        .history-section:nth-child(5) h2::before { content: '✝️'; }
+
+        .history-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5d4037;
+            text-align: justify;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-indicator {
+            display: inline-block;
+            background: linear-gradient(45deg, #8b4513, #d4af37);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-right: 10px;
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 35px;
+            background: linear-gradient(45deg, #2c1810, #5d4037, #3e2723);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin: 30px -20px -20px -20px;
+            font-size: 1.1rem;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            body > header h1 {
+                font-size: 2rem;
+            }
+
+            body > nav a {
+                margin: 5px 10px;
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .content h1 {
+                font-size: 2.2rem;
+            }
+
+            .history-section {
+                padding: 25px;
+            }
+
+            .history-section h2 {
+                font-size: 1.7rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>鹿児島県へようこそ 🏛️</h1>
+    </header>
+    <nav>
+        <a href="tourist.html">🏞️ 観光スポット</a>
+        <a href="restaurants.html">🍜 おすすめの飲食店</a>
+        <a href="history.html">📚 鹿児島の歴史</a>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <h1>薩摩の歴史</h1>
+            <div class="intro-text">
+                鹿児島は、薩摩藩の歴史や西郷隆盛などの偉人が活躍した場所です。歴史的な名所や博物館を訪れて、鹿児島の豊かな歴史を学びましょう。
+            </div>
+            
+            <section id="history">
+                <div class="history-section">
+                    <h2>薩摩藩</h2>
+                    <p><span class="timeline-indicator">江戸時代</span>薩摩藩は、江戸時代に存在した強大な外様大名で、現在の鹿児島県と宮崎県の一部を治めていました。藩主の島津氏は独自の文化と強固な軍事力を持ち、琉球王国との貿易や密貿易により莫大な富を築きました。薩摩藩は幕府に対して表面的には従順でありながら、独自の政策を推進し、後の明治維新において重要な役割を果たすことになります。</p>
+                </div>
+
+                <div class="history-section">
+                    <h2>西郷隆盛</h2>
+                    <p><span class="timeline-indicator">1828-1877</span>西郷隆盛は薩摩藩出身の武士で、明治維新の三傑の一人として知られています。江戸城無血開城を成し遂げ、明治政府の要職に就きましたが、征韓論で政府と対立し下野しました。その後、私学校を設立して青年の教育に尽力しましたが、西南戦争で政府軍と戦い、城山で自刃しました。「敬天愛人」の思想を持つ偉大なリーダーとして今なお愛され続けています。</p>
+                </div>
+
+                <div class="history-section">
+                    <h2>明治維新</h2>
+                    <p><span class="timeline-indicator">1868年</span>明治維新は日本の近代化を決定づけた大変革でした。薩摩藩は長州藩と薩長同盟を結び、幕府打倒の中心勢力となりました。鳥羽・伏見の戦いを皮切りに戊辰戦争が始まり、最終的に江戸幕府の終焉と明治新政府の成立をもたらしました。この変革により日本は封建制度から近代国家へと生まれ変わり、富国強兵政策のもと急速な発展を遂げることになります。</p>
+                </div>
+
+                <div class="history-section">
+                    <h2>鉄砲伝来</h2>
+                    <p><span class="timeline-indicator">1543年</span>鉄砲伝来は日本史における画期的な出来事でした。ポルトガル人が種子島に漂着した際、鉄砲（火縄銃）が初めて日本に伝えられました。島津氏はこの新兵器の重要性をいち早く認識し、製造技術の習得に努めました。この技術革新により戦国時代の戦術が大きく変化し、薩摩藩の軍事力強化にも大きく貢献しました。鉄砲は日本の戦国統一過程において決定的な役割を果たすことになります。</p>
+                </div>
+
+                <div class="history-section">
+                    <h2>ザビエル来鹿</h2>
+                    <p><span class="timeline-indicator">1549年</span>フランシスコ・ザビエルの鹿児島上陸は、日本におけるキリスト教史の出発点となりました。ザビエルは薩摩藩主島津貴久の許可を得て、約1年間鹿児島で布教活動を行いました。彼は日本人の知性と道徳性の高さに感銘を受け、「日本人は今まで発見された国民の中で最も優秀」と本国に報告しています。この出来事は東西文化交流の象徴的な出来事として、今日でも語り継がれています。</p>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 KCS鹿児島観光協会 - 薩摩の歴史を未来へ 🏛️</p>
+        </footer>
+    </div>
+</body>
+</html>
